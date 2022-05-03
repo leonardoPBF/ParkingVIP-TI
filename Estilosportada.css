@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.items{
+    width: 100%;
+    background-color: #212529;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+}
+
+.links{
+    
+    display: flex;
+    box-sizing: border-box; 
+    text-decoration: none;  
+    margin-right: 45vh;
+    padding-top: 15px;
+    
+
+}
+
+.conte{
+    list-style: none;
+    border-right: 4px solid red;
+    text-transform: uppercase;
+    font-weight: bold;
+
+}
+.conte:hover .bartexto:hover{
+    background-color: mintcream;
+    color:black;
+
+}
+
+.bartexto{
+    text-decoration: none;
+    color: white; 
+    
+    font-size: 16px;
+    padding: 10px 18px;
+    margin: 0px 5px;
+    border-radius: 5px;
+    
+}
+
+.logobar{
+    text-decoration: none;
+    color: white;
+    margin: 3px 0px 3px 35vh;  
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 26px;
+    padding: 0px 20px;  
+}
+
+.cajaTexto{
+    background-color: #41464b45;
+    color: black;
+
+}
+.descripcion{
+    padding: 40px;
+    text-align: justify;
+
+}
+.textoDes{
+    font-size: 18px;
+    padding-top: 10px;
+}
+.materiales{
+
+    padding: 0px 40px 40px 40px;
+}
