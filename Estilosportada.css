@@ -79,7 +79,7 @@
     margin: 3px 0px 3px 35vh;  
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 26px;
-    padding: 0px 20px;  
+    padding: 5px 20px;  
 }
 .navbar {    
     margin-bottom: 8px;
@@ -125,8 +125,13 @@
 }
 .materiales{
 
-    padding: 0px 70px 40px 70px;
+    padding: 0px 70px 40px 70px;       
 
+}
+pre{
+    background-color: #eee;
+    padding-top: 70px;    
+    
 }
 .videoyou{
     width: 100%;
@@ -297,9 +302,7 @@ h3{
 
 @media (max-width: 530px){
 
-    .uno{
-        display: none;
-    }
+ 
     .dos{
         margin-left: 5vw;    
     }
@@ -345,14 +348,14 @@ h3{
     .videoyou{
         height: 240px;
     }
+    .nav-item{
+        margin-left: 60px;
+    }
 }
 
 
 @media (max-width: 430px){
 
-    .uno{
-        display: none;
-    }
     .dos{
         margin-left: 0;    
     }
@@ -387,13 +390,16 @@ h3{
         font-size: 12px;
         padding-bottom: 30px;
     }
+    .nav-item{
+        margin-left: 35px;
+    }
     
 }
 
 @media (max-width: 350px){
 
     .dos{
-        padding: 0px;    
+        padding: 5px 0px 0px 0px;    
         font-size: 20px;
     }
    
@@ -415,5 +421,7 @@ h3{
         padding-bottom: 20px;
     }
     
-    
+    .nav-item{
+        margin-left: 15px;
+    }
 }

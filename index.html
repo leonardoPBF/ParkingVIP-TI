@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="carousel.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
 </head>
 
 <body>
@@ -143,152 +143,172 @@
 
         <div id="materiales" class="materiales">
           <h2>Materiales</h2>
-          <p class="textoDes">xd
+          <p class="textoDes">Para poder llevar a cabo nuestro proyecto en torno al uso de sensores utilizamos los siguientes materiales:
           </p>
           <ol type="triangle">
             <li>Arduino</li>
-            <li>Sensores</li>
-            <li>30 cables</li>
-            <li>Placa de pruebas</li>
-            <li>Carritos</li>
-            <li>Carton</li>
-            <li>Sorbetes</li>
-            <li>Leds</li>
+            <li>Placa de pruebas pequeña</li>
+            <li>Potenciometro(***)</li>
+            <li>2 sensores de distancia ultrasonico</li>
+            <li>Sensor PIR</li>
+            <li>Fotoresistencia</li>
+            <li>Servomotor</li>
+            <li>2 leds</li>
+            <li>4 resistencias de 220 Ω (***)</li>
             <li>LCD 16x2</li>
-            <li>Regulador de voltaje</li>
+            <li>Autos de juguete</li>
+            <li>Carton (Base de la maqueta)</li>
+            <li>Palo de helado (entrada)</li>
           </ol>
 
         </div>   
         
         <div id="codigo" class="materiales">
           <h2>Codigo</h2>
-          <p>
-            #include <LiquidCrystal.h>
-              #include <Servo.h>
+        
+          <pre>
+              #include < LiquidCrystal.h>
+              #include < Servo.h>
               
               LiquidCrystal lcd(7,6,5,4,3,2);
-              Servo servo1;
+              Servo entrada;
               
-              int servo=8;
-              int pulsoMin = 544;
-              int pulsoMax = 1500;
-              int pir = 9;
+              int servo=9;
+              int pir = 8;
               int lecturaPir;
               
               int  distancia1;
               int  distancia2;
-              int trigger1=10, trigger2=12, echo1=11, echo2=13;
+              int trigger1=10, trigger2=12, echo1=11, echo2=13, 
+              foco1=A1, foco2=A2;
               
               int uso1;
               int uso2;
-              int espaciosD=4;
+              int espaciosD=2;
               
               void setup()
               {
                 Serial.begin(9600);
                 lcd.begin(16,2);
               
-                servo1.attach(servo, pulsoMin, pulsoMax); 
+                entrada.attach(servo); 
+                entrada.write(0);
                 pinMode(pir, INPUT);
                 
                 pinMode(trigger1, OUTPUT);
-                pinMode(echo1, INPUT);
-                pinMode(tri
-                        
-                        
-                        
-                        
-                        T);
+                pinMode(trigger2, OUTPUT);
+                pinMode(echo1, INPUT);  
                 pinMode(echo2, INPUT);
+                pinMode(foco1, OUTPUT);
+                pinMode(foco2, OUTPUT);
               }
               
               void loop()
+                
               {
-                lcd.clear();
-                lcd.setCursor(0,0);
-                lcd.print("Parking VIP");
-                lcd.setCursor(0,1);
-                lcd.print("Seguro y confiable");
-                delay(2000);
-                for(int i=0;i<18; i++){
-                   lcd.scrollDisplayLeft();
-                   delay(500);
-                } 
-                lcd.clear();
-                delay(2000);
-                lcd.setCursor(0,0);
-                lcd.print("Espacios libres");
-                lcd.setCursor(0,1);
-                lcd.print(espaciosD);
+                //Fotoresistencia
+                  int luz=analogRead(A0); 
+                  Serial.println(luz);
+                  if(luz > 130){
+                    digitalWrite(foco1, HIGH);
+                    digitalWrite(foco2, HIGH);
+                  }else{
+                    digitalWrite(foco1, LOW);
+                    digitalWrite(foco2, LOW);
+                  }
                 
+                //sensor de distancia 1
+                    digitalWrite(trigger1,LOW); delayMicroseconds(2);
+                    digitalWrite(trigger1,HIGH); delayMicroseconds(10);
+                    digitalWrite(trigger1,LOW);   
+              
+                    long tiempo1= pulseIn(echo1,HIGH);
+                    double distancia1= tiempo1/58.82;
                 
+                  //sensor de distancia 2
+                    digitalWrite(trigger2,LOW); delayMicroseconds(2);
+                    digitalWrite(trigger2,HIGH); delayMicroseconds(10);
+                    digitalWrite(trigger2,LOW);   
                 
-                digitalWrite(trigger1,LOW); delayMicroseconds(2);
-                digitalWrite(trigger1,HIGH); delayMicroseconds(10);
-                digitalWrite(trigger1,LOW); 
+                    long tiempo2= pulseIn(echo2,HIGH);
+                    double distancia2= tiempo2/58.82;
                 
-                
-                long tiempo1= pulseIn(echo1,HIGH);
-                double distancia1= tiempo1/58.82;
-                
-                
-                digitalWrite(trigger2,LOW); delayMicroseconds(2);
-                digitalWrite(trigger2,HIGH); delayMicroseconds(10);
-                digitalWrite(trigger2,LOW); 
-                
-                
-                long tiempo2= pulseIn(echo2,HIGH);
-                double distancia2= tiempo2/58.82;
-                
-                if(distancia1<5){
-                  uso1=1;	
-                }else{
-                  uso1=0;
-                }
-                if(distancia2<5){
-                  uso2=1;
-                }else{
-                  uso2=0;
-                }
-                
-                
-                
+                    //revisamos si hay autos aparcados
+                    if(distancia1<10){
+                      uso1=1;	
+                    }else{
+                      uso1=0;
+                    }
+                    if(distancia2<10){
+                      uso2=1;
+                    }else{
+                      uso2=0;
+                    }
+                    espaciosD=2;  	   
+                    espaciosD=espaciosD-uso1-uso2;	
+                //detectamos el vehiculo con sensor de mov
                 lecturaPir = digitalRead(pir);
                 
-                if (lecturaPir == HIGH){
+                if (lecturaPir == HIGH){ 	
                   
                   lcd.clear();
                   lcd.setCursor(0,0);
-                  lcd.print("Hola, bienvenido a Parking VIP");
-                  servo1.write(90);
-                  delay(1000);
                   
-                  for(int i=0;i<22; i++){
-                      lcd.scrollDisplayLeft();
-                      delay(500);
-                  } 
-                  espaciosD=espaciosD-uso1-uso2;
-                  lcd.clear();
-                  lcd.setCursor(0,0);
-                  lcd.print("Espacios");
-                  lcd.setCursor(0,1);
-                  lcd.print("Disponibles:");
-                  lcd.print(espaciosD);
-                  delay(2000);
+                    
+                  //vemos si existen espacios disponibles 
                   
                   
-                }else{
+                  if(espaciosD>0){
+                    lcd.clear();
+                    lcd.print("Hola, bienvenido a Parking VIP");
+                    entrada.write(90);
+                    delay(500);
+                    for(int i=0;i<22; i++){
+                        lcd.scrollDisplayLeft();
+                        delay(400);
+                    } 
+                    entrada.write(0);
+                    lcd.clear();
+                    lcd.setCursor(0,0);
+                    lcd.print("Espacios");
+                    lcd.setCursor(0,1);
+                    lcd.print("Disponibles: ");
+                    lcd.print(espaciosD);
+                    
+                    
+                  }else if(espaciosD <= 0){
+                    
+                    lcd.clear();
+                    lcd.print("Estacionamiento lleno");
+                    
+                    delay(500);
+                    for(int i=0;i<22; i++){
+                        lcd.scrollDisplayLeft();
+                        delay(300);
+                    } 
+                    
+                      
+                  }
                   
-                  servo1.write(0);
-                  delay(500);
+               }else{
+              
+                    lcd.clear();
+                    lcd.setCursor(0,0);
+                    lcd.print("Parking VIP");
+                    lcd.setCursor(0,1);
+                    lcd.print("Espacios libres:");
+                    lcd.setCursor(17,1);
+                    lcd.print(espaciosD);
+                    delay(2000);
+              
+                    for(int i=0;i<18; i++){
+                       lcd.scrollDisplayLeft();
+                       delay(200);
                 }
-                
-                
-                
-                  
               }
-          </p>        
-         
+              }
+          </pre>
+     
           <div id="video" >
             <h2>Video</h2>
             <br>
