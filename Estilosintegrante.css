@@ -57,6 +57,16 @@
     margin: 20px 20px;
     font-size: large;
 }
+footer{
+    width: 100%;    
+    color: white;
+    padding-top: 40px;
+    font-family: 'Courier New', Courier, monospace;
+}
+footer p{
+    text-align: center;     
+}
+
 @media (max-width:1165px){
     .card-titulo{
         padding-top: 220px;
@@ -98,4 +108,21 @@
     .card-titulo{
         padding-bottom: 20px;
     }
+}
+
+@media (max-width: 520px){
+    
+    .container-c{
+        padding-top: 360px;
+        padding-bottom: 350px;
+    }
+   
+}
+
+@media (max-width: 350px){
+    
+    .container-c{
+        padding: 350px 340px 370px 170px;
+    }
+   
 }
