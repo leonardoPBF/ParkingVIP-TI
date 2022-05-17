@@ -9,10 +9,11 @@ h1{
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    margin: 20px;
 }
 .contenido{
     display: flex;
-    margin: 60px;
+    margin: 30px;
 
 }
 .articulos{
@@ -23,42 +24,38 @@ h1{
     display: flex;
     align-items: center;
     padding: 40px;
-    font-size: 150%;
+    font-size: 1.5em;
     font-family: 'Courier New', Courier, monospace;
+    text-align: justify;    
 }
 footer{
-    width: 100%;
-    height: 200px;
+    width: 100%;    
     background-color: blueviolet;
     color: white;
     padding-top: 0px;
     font-family: 'Courier New', Courier, monospace;
 }
 footer p{
-    text-align: center;
-    padding: 50px;
+    text-align: center;     
 }
 .titulo{
     font-family: 'Poppins', sans-serif;
     position: relative;
     text-align: center;
     height: auto;
-    padding-top: 150px;
-    padding-bottom: 80px;
+    padding-top: 130px;
+    padding-bottom: 50px;
 }
-@media (max-width:1276px){
-    .titulo{
-        padding-top: 180px;
-        padding-bottom: 60px;
-    }
-}
+
 @media (max-width:1232px){
+    
     .titulo{
         padding-top: 190px;
         padding-bottom: 60px;
     }
     .secciones{
         font-size: 140%;
+        flex-direction: column;
     }
 }
 @media (max-width:1165px){
@@ -91,5 +88,30 @@ footer p{
     }
     .secciones{
         font-size: 15px;
+    }
+}
+
+@media (max-width: 360px){
+
+    
+    .secciones{
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 300px){
+
+   
+    .secciones{
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .imagen img{
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin: 20px;
     }
 }
