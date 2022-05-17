@@ -164,149 +164,148 @@
         </div>   
         
         <div id="codigo" class="materiales">
-          <h2>Codigo</h2>
-        
+          <h2>Codigo</h2>        
           <pre>
-              #include < LiquidCrystal.h>
-              #include < Servo.h>
+#include < LiquidCrystal.h>
+#include < Servo.h>
               
-              LiquidCrystal lcd(7,6,5,4,3,2);
-              Servo entrada;
+LiquidCrystal lcd(7,6,5,4,3,2);
+Servo entrada;
               
-              int servo=9;
-              int pir = 8;
-              int lecturaPir;
+int servo=9;
+int pir = 8;
+int lecturaPir;
               
-              int  distancia1;
-              int  distancia2;
-              int trigger1=10, trigger2=12, echo1=11, echo2=13, 
-              foco1=A1, foco2=A2;
+int  distancia1;
+int  distancia2;
+int trigger1=10, trigger2=12, echo1=11, echo2=13, 
+foco1=A1, foco2=A2;
               
-              int uso1;
-              int uso2;
-              int espaciosD=2;
+int uso1;
+int uso2;
+int espaciosD=2;
               
-              void setup()
-              {
-                Serial.begin(9600);
-                lcd.begin(16,2);
+void setup()
+{
+  Serial.begin(9600);
+  lcd.begin(16,2);
               
-                entrada.attach(servo); 
-                entrada.write(0);
-                pinMode(pir, INPUT);
+  entrada.attach(servo); 
+  entrada.write(0);
+  pinMode(pir, INPUT);
                 
-                pinMode(trigger1, OUTPUT);
-                pinMode(trigger2, OUTPUT);
-                pinMode(echo1, INPUT);  
-                pinMode(echo2, INPUT);
-                pinMode(foco1, OUTPUT);
-                pinMode(foco2, OUTPUT);
-              }
+  pinMode(trigger1, OUTPUT);
+  pinMode(trigger2, OUTPUT);
+  pinMode(echo1, INPUT);  
+  pinMode(echo2, INPUT);
+  pinMode(foco1, OUTPUT);
+  pinMode(foco2, OUTPUT);
+}
               
-              void loop()
+void loop()
                 
-              {
-                //Fotoresistencia
-                  int luz=analogRead(A0); 
-                  Serial.println(luz);
-                  if(luz > 130){
-                    digitalWrite(foco1, HIGH);
-                    digitalWrite(foco2, HIGH);
-                  }else{
-                    digitalWrite(foco1, LOW);
-                    digitalWrite(foco2, LOW);
-                  }
+{
+  //Fotoresistencia
+    int luz=analogRead(A0); 
+    Serial.println(luz);
+    if(luz > 130){
+      digitalWrite(foco1, HIGH);
+      digitalWrite(foco2, HIGH);
+    }else{
+      digitalWrite(foco1, LOW);
+      digitalWrite(foco2, LOW);
+    }
                 
-                //sensor de distancia 1
-                    digitalWrite(trigger1,LOW); delayMicroseconds(2);
-                    digitalWrite(trigger1,HIGH); delayMicroseconds(10);
-                    digitalWrite(trigger1,LOW);   
+  //sensor de distancia 1
+      digitalWrite(trigger1,LOW); delayMicroseconds(2);
+      digitalWrite(trigger1,HIGH); delayMicroseconds(10);
+      digitalWrite(trigger1,LOW);   
               
-                    long tiempo1= pulseIn(echo1,HIGH);
-                    double distancia1= tiempo1/58.82;
+      long tiempo1= pulseIn(echo1,HIGH);
+      double distancia1= tiempo1/58.82;
                 
-                  //sensor de distancia 2
-                    digitalWrite(trigger2,LOW); delayMicroseconds(2);
-                    digitalWrite(trigger2,HIGH); delayMicroseconds(10);
-                    digitalWrite(trigger2,LOW);   
+    //sensor de distancia 2
+      digitalWrite(trigger2,LOW); delayMicroseconds(2);
+      digitalWrite(trigger2,HIGH); delayMicroseconds(10);
+      digitalWrite(trigger2,LOW);   
                 
-                    long tiempo2= pulseIn(echo2,HIGH);
-                    double distancia2= tiempo2/58.82;
+      long tiempo2= pulseIn(echo2,HIGH);
+      double distancia2= tiempo2/58.82;
                 
-                    //revisamos si hay autos aparcados
-                    if(distancia1<10){
-                      uso1=1;	
-                    }else{
-                      uso1=0;
-                    }
-                    if(distancia2<10){
-                      uso2=1;
-                    }else{
-                      uso2=0;
-                    }
-                    espaciosD=2;  	   
-                    espaciosD=espaciosD-uso1-uso2;	
-                //detectamos el vehiculo con sensor de mov
-                lecturaPir = digitalRead(pir);
+      //revisamos si hay autos aparcados
+      if(distancia1<10){
+        uso1=1;	
+      }else{
+        uso1=0;
+      }
+      if(distancia2<10){
+        uso2=1;
+      }else{
+        uso2=0;
+      }
+      espaciosD=2;  	   
+      espaciosD=espaciosD-uso1-uso2;	
+  //detectamos el vehiculo con sensor de mov
+  lecturaPir = digitalRead(pir);
                 
-                if (lecturaPir == HIGH){ 	
+  if (lecturaPir == HIGH){ 	
                   
-                  lcd.clear();
-                  lcd.setCursor(0,0);
+    lcd.clear();
+    lcd.setCursor(0,0);
                   
                     
-                  //vemos si existen espacios disponibles 
+    //vemos si existen espacios disponibles 
                   
                   
-                  if(espaciosD>0){
-                    lcd.clear();
-                    lcd.print("Hola, bienvenido a Parking VIP");
-                    entrada.write(90);
-                    delay(500);
-                    for(int i=0;i<22; i++){
-                        lcd.scrollDisplayLeft();
-                        delay(400);
-                    } 
-                    entrada.write(0);
-                    lcd.clear();
-                    lcd.setCursor(0,0);
-                    lcd.print("Espacios");
-                    lcd.setCursor(0,1);
-                    lcd.print("Disponibles: ");
-                    lcd.print(espaciosD);
+    if(espaciosD>0){
+      lcd.clear();
+      lcd.print("Hola, bienvenido a Parking VIP");
+      entrada.write(90);
+      delay(500);
+      for(int i=0;i<22; i++){
+          lcd.scrollDisplayLeft();
+          delay(400);
+      } 
+      entrada.write(0);
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Espacios");
+      lcd.setCursor(0,1);
+      lcd.print("Disponibles: ");
+      lcd.print(espaciosD);
                     
                     
-                  }else if(espaciosD <= 0){
+    }else if(espaciosD <= 0){
                     
-                    lcd.clear();
-                    lcd.print("Estacionamiento lleno");
+      lcd.clear();
+      lcd.print("Estacionamiento lleno");
                     
-                    delay(500);
-                    for(int i=0;i<22; i++){
-                        lcd.scrollDisplayLeft();
-                        delay(300);
-                    } 
+      delay(500);
+      for(int i=0;i<22; i++){
+          lcd.scrollDisplayLeft();
+          delay(300);
+      } 
                     
                       
-                  }
+    }
                   
-               }else{
+  }else{
               
-                    lcd.clear();
-                    lcd.setCursor(0,0);
-                    lcd.print("Parking VIP");
-                    lcd.setCursor(0,1);
-                    lcd.print("Espacios libres:");
-                    lcd.setCursor(17,1);
-                    lcd.print(espaciosD);
-                    delay(2000);
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Parking VIP");
+      lcd.setCursor(0,1);
+      lcd.print("Espacios libres:");
+      lcd.setCursor(17,1);
+      lcd.print(espaciosD);
+      delay(2000);
               
-                    for(int i=0;i<18; i++){
-                       lcd.scrollDisplayLeft();
-                       delay(200);
-                }
-              }
-              }
+      for(int i=0;i<18; i++){
+          lcd.scrollDisplayLeft();
+          delay(200);
+  }
+}
+}
           </pre>
      
           <div id="video" >

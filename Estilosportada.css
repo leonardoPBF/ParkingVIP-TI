@@ -130,7 +130,8 @@
 }
 pre{
     background-color: #eee;
-    padding-top: 70px;    
+    padding-top: 40px;
+    padding-left: 50px;     
     
 }
 .videoyou{
@@ -298,6 +299,12 @@ h3{
     .nav-item{
         margin-left: 90px;
     }
+    pre{
+        
+        padding-top: 20px;   
+        padding-left: 30px;  
+        
+    }
 }
 
 @media (max-width: 530px){
@@ -423,5 +430,11 @@ h3{
     
     .nav-item{
         margin-left: 15px;
+    }
+    pre{
+        
+        padding-top: 10px;   
+        padding-left: 20px;  
+        
     }
 }
