@@ -61,6 +61,7 @@
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 3"></button>
         </div>
         
         <div class="carousel-inner" style="padding-top: 81px;">
@@ -114,6 +115,18 @@
               </div>
             </div>
           </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="https://dc722jrlp2zu8.cloudfront.net/media/featured_images/tutorial-arduino-03_J5CR7Jr.png" alt="">
+    
+            <div class="container">
+              <div class="carousel-caption">
+                <h1 class="textoCarrucel1" style="color: black;">Simulacion tinkercad</h1>
+                <p class="textoSecundario" >El funcionamiento del programa en tinkercat</p>
+                
+                <p><a class="btn btn-lg btn-primary" href="#tinker">ir a ello</a></p>
+              </div>
+            </div>
+          </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -143,154 +156,82 @@
 
         <div id="materiales" class="materiales">
           <h2>Materiales</h2>
-          <p class="textoDes">Para poder llevar a cabo nuestro proyecto en torno al uso de sensores utilizamos los siguientes materiales:
+          <p class="textoDes">Para poder llevar a cabo nuestro proyecto en torno al uso de sensores utilizamos los siguientes 
+            materiales clasificados en:
           </p>
-          <ol type="triangle">
-            <li>Arduino</li>
+          <p class="textoDes" >1.-Componentes Electronicos:</p>
+          <ul>
+            <li>Arduino UNO</li>
             <li>Placa de pruebas pequeña</li>
-            <li>Potenciometro(***)</li>
             <li>2 sensores de distancia ultrasonico</li>
-            <li>Sensor PIR</li>
+            <li>Sensor PIR</li> 
             <li>Fotoresistencia</li>
             <li>Servomotor</li>
             <li>2 leds</li>
             <li>4 resistencias de 220 Ω (***)</li>
             <li>LCD 16x2</li>
+            <li>Interfaz I2C para el LCD</li>
+            <li>Cables H-H</li>
+            <li>Cables H-M</li>
+            <li>Cables M-M</li>
+            <li>Estaño</li>
+
+          </ul>
+          <p class="textoDes" >2.-Materiales no Electronicos</p>
+          <ul>
             <li>Autos de juguete</li>
-            <li>Carton (Base de la maqueta)</li>
-            <li>Palo de helado (entrada)</li>
-          </ol>
+            <li>Soporte con luz</li>
+            <li>Tecnopor</li>
+            <li>Pegamento</li>
+            <li>Pinturas</li>
+            <li>Fotocopias</li>
+            <li>Cartulinas de color</li>
+            <li>Cinta</li>
+          </ul>
 
         </div>   
         
         <div id="codigo" class="materiales">
           <h2>Codigo</h2>        
           <pre>
-#include < LiquidCrystal.h>
-#include < Servo.h>
-              
-LiquidCrystal lcd(7,6,5,4,3,2);
+#include <LiquidCrystal_I2C.h>
+#include <Servo.h>
+
+LiquidCrystal_I2C lcd(0x27,16,2);
 Servo entrada;
-              
+
 int servo=9;
-int pir = 8;
-int lecturaPir;
-              
-int  distancia1;
-int  distancia2;
-int trigger1=10, trigger2=12, echo1=11, echo2=13, 
-foco1=A1, foco2=A2;
-              
-int uso1;
-int uso2;
+
+long tiempo1, tiempo2, tiempoE;
+double  distancia1, distancia2, distanciaE;
+
+int trigger1=10, trigger2=12, trigger3=6, echo1=11, echo2=13, echo3=7,
+foco1=4, foco2=3, dato;
+int luz;
+
+int uso;
 int espaciosD=2;
-              
-void setup()
-{
+
+void setup() {
   Serial.begin(9600);
-  lcd.begin(16,2);
-              
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
   entrada.attach(servo); 
-  entrada.write(0);
-  pinMode(pir, INPUT);
-                
+  entrada.write(90);
+  
   pinMode(trigger1, OUTPUT);
   pinMode(trigger2, OUTPUT);
+  pinMode(trigger3, OUTPUT);
   pinMode(echo1, INPUT);  
-  pinMode(echo2, INPUT);
+  pinMode(echo1, INPUT);  
+  pinMode(echo3, INPUT);
   pinMode(foco1, OUTPUT);
   pinMode(foco2, OUTPUT);
 }
-              
-void loop()
-                
+
+void loop() 
 {
-  //Fotoresistencia
-    int luz=analogRead(A0); 
-    Serial.println(luz);
-    if(luz > 130){
-      digitalWrite(foco1, HIGH);
-      digitalWrite(foco2, HIGH);
-    }else{
-      digitalWrite(foco1, LOW);
-      digitalWrite(foco2, LOW);
-    }
-                
-  //sensor de distancia 1
-      digitalWrite(trigger1,LOW); delayMicroseconds(2);
-      digitalWrite(trigger1,HIGH); delayMicroseconds(10);
-      digitalWrite(trigger1,LOW);   
-              
-      long tiempo1= pulseIn(echo1,HIGH);
-      double distancia1= tiempo1/58.82;
-                
-    //sensor de distancia 2
-      digitalWrite(trigger2,LOW); delayMicroseconds(2);
-      digitalWrite(trigger2,HIGH); delayMicroseconds(10);
-      digitalWrite(trigger2,LOW);   
-                
-      long tiempo2= pulseIn(echo2,HIGH);
-      double distancia2= tiempo2/58.82;
-                
-      //revisamos si hay autos aparcados
-      if(distancia1<10){
-        uso1=1;	
-      }else{
-        uso1=0;
-      }
-      if(distancia2<10){
-        uso2=1;
-      }else{
-        uso2=0;
-      }
-      espaciosD=2;  	   
-      espaciosD=espaciosD-uso1-uso2;	
-  //detectamos el vehiculo con sensor de mov
-  lecturaPir = digitalRead(pir);
-                
-  if (lecturaPir == HIGH){ 	
-                  
-    lcd.clear();
-    lcd.setCursor(0,0);
-                  
-                    
-    //vemos si existen espacios disponibles 
-                  
-                  
-    if(espaciosD>0){
-      lcd.clear();
-      lcd.print("Hola, bienvenido a Parking VIP");
-      entrada.write(90);
-      delay(500);
-      for(int i=0;i<22; i++){
-          lcd.scrollDisplayLeft();
-          delay(400);
-      } 
-      entrada.write(0);
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print("Espacios");
-      lcd.setCursor(0,1);
-      lcd.print("Disponibles: ");
-      lcd.print(espaciosD);
-                    
-                    
-    }else if(espaciosD <= 0){
-                    
-      lcd.clear();
-      lcd.print("Estacionamiento lleno");
-                    
-      delay(500);
-      for(int i=0;i<22; i++){
-          lcd.scrollDisplayLeft();
-          delay(300);
-      } 
-                    
-                      
-    }
-                  
-  }else{
-              
       lcd.clear();
       lcd.setCursor(0,0);
       lcd.print("Parking VIP");
@@ -299,22 +240,118 @@ void loop()
       lcd.setCursor(17,1);
       lcd.print(espaciosD);
       delay(2000);
-              
+
       for(int i=0;i<18; i++){
+         lcd.scrollDisplayLeft();
+         delay(250);
+         
+  //sensor de distancia 1
+      digitalWrite(trigger1,LOW); delayMicroseconds(2);
+      digitalWrite(trigger1,HIGH); delayMicroseconds(10);
+      digitalWrite(trigger1,LOW);   
+
+      tiempo1= pulseIn(echo1,HIGH);
+      distancia1= tiempo1/58.82;
+  
+  //sensor de distancia 2
+      digitalWrite(trigger2,LOW); delayMicroseconds(2);
+      digitalWrite(trigger2,HIGH); delayMicroseconds(10);
+      digitalWrite(trigger2,LOW);   
+  
+      tiempo2= pulseIn(echo2,HIGH);
+      distancia2= tiempo2/58.82;
+
+  //entrada
+      digitalWrite(trigger3,LOW); delayMicroseconds(2);
+      digitalWrite(trigger3,HIGH); delayMicroseconds(10);
+      digitalWrite(trigger3,LOW);   
+
+      tiempoE= pulseIn(echo3,HIGH);
+      distanciaE= tiempoE/58.82;
+    
+  //Fotoresistencia
+    luz=analogRead(A0); 
+    if(luz < 70){
+      digitalWrite(foco1, HIGH);
+      digitalWrite(foco2, HIGH);
+    }else{
+      digitalWrite(foco1, LOW);
+      digitalWrite(foco2, LOW);
+    }
+
+    
+        
+  //verificamos espacios vacios  
+
+      if(distancia1<10 && distancia2<10){
+        uso=2; 
+      }else if(distancia1<10 && distancia2>10 || distancia1>10 && distancia2<10){
+        uso=1;
+      }else{
+        uso=0;        
+      }
+      
+      espaciosD=2;       
+      espaciosD=espaciosD-uso;  
+  
+  //detectamos el vehiculo con sensor de distancia
+  
+    if (distanciaE < 14){   
+    
+    lcd.clear();
+    lcd.setCursor(0,0);
+    
+      
+  //vemos si existen espacios disponibles 
+    
+    
+    if(espaciosD>0){
+      lcd.clear();
+      lcd.print("Hola, bienvenido a Parking VIP");
+      entrada.write(0);
+      
+      for(int i=0;i<22; i++){
           lcd.scrollDisplayLeft();
-          delay(200);
-  }
+          delay(250);
+      }
+      entrada.write(90);
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Espacios");
+      lcd.setCursor(0,1);
+      lcd.print("Disponibles: ");
+      lcd.print(espaciosD);
+      
+      
+    }else if(espaciosD <= 0){
+      
+      lcd.clear();
+      lcd.print("Estacionamiento lleno");
+      
+      delay(500);
+      for(int i=0;i<22; i++){
+          lcd.scrollDisplayLeft();
+          delay(300);
+      }   
+    }    
+ }
 }
 }
-          </pre>
+  </pre>
      
           <div id="video" >
             <h2>Video</h2>
             <br>
             <iframe class="videoyou" src="https://www.youtube.com/embed/PNXp2UJiCLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   
-          </div>     
-        </div>  
+          </div>    
+          
+          <div id="tinker" >
+            <br>    
+            <h2>Simulacion en tinkercat</h2>                    
+            <iframe width="100%" height="453" src="https://www.tinkercad.com/embed/kGU9HOzxwdR?editbtn=1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+          </div>  
+          
       </div>
 
        <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
@@ -329,6 +366,8 @@ void loop()
             <a class="Secciones" href="#materiales">✰ Materiales</a>
             <a class="Secciones" href="#codigo">✰ Codigo</a>
             <a class="Secciones" href="#video">✰ Video</a>
+            <a class="Secciones" href="#tinker">✰ Tinkercad</a>
+            
           </div>
           <div class="col-md-8 col-sm-8" >
             <h3>Mas informacion</h3>
