@@ -1,23 +1,24 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
 
 .container-c{
-    background-color: #41464b45;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 70vh;
     font-family: 'Poppins', sans-serif;
-    padding: 100px 60px;
-    padding-bottom: 200px;
+    padding-bottom: 10px;
 
 }
 .card-titulo{
-    background-color: #41464b45;
+    background-color: #ffffff;
     font-family: 'Poppins', sans-serif;
     position: relative;
     text-align: center;
     height: auto;
-    padding-top: 170px;
-    padding-bottom: 100px;
+    padding-top: 150px;
 }
 .card-container{
     display: flex;

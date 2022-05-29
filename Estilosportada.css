@@ -4,17 +4,26 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 .items{
     width: 100%;
-    background-color: #212529;
+    background-color: #18191a;
     display: flex;
     align-items: center;
     justify-content: space-between;   
     position: fixed;
     z-index: 100;
     height: auto;   
+}
+
+.tinker{
+    margin: 0 2rem 5rem 2rem;
+}
+
+.video{
+    margin: 2rem;
 }
 
 .links{
@@ -38,20 +47,20 @@
     text-decoration: none;
     color: white;     
     font-size: 16px;
-    padding: 5px 10px;    
-    border-radius: 5px;  
-    border: 4px solid rgba(255,255,255,.55);;      
+    padding: 5px 10px;          
 }
 .expandible:hover { 
-    background-color: grey;
+    background-color: white;
+    color: #18191a;
 }
 .navbar-toggler:hover{
-    background-color: grey; 
+    background-color: white;
+    color: #18191a;
 }
 
 .conte{
     list-style: none;
-    border-right: 4px solid red;
+    border-right: 4px ;
     text-transform: uppercase;
     font-weight: bold;
 
@@ -73,6 +82,10 @@
     
 }
 
+.navbar>.container-fluid{
+    background-color: #18191a;
+}
+
 .logobar{
     text-decoration: none;
     color: white;
@@ -86,7 +99,7 @@
 }
 
 .cajaTexto{
-    background-color: #41464b45;
+    background-color: #ffffff45;
     color: black;
 
 }
@@ -101,15 +114,18 @@
 }
 .imagenDes1{
     width: 28%;
-    margin-right: 20px;
-    margin-left: 20px;
+    height: 380px;
+    margin-right: 18px;
+    margin-left: 18px;
 }
 .imagenDes2{
     width: 35%;
-    margin-right: 20px;
+    height: 380px;
+    margin-right: 18px;
 }
 .imagenDes3{
     width: 28%; 
+    height: 380px;
 }
 
 .generator{
@@ -146,7 +162,8 @@ pre{
 }
 
 footer{
-    background-color: #212529;
+    background-color: #18191a
+    ;
     width: 100%;
     padding: 60px 60px 40px 60px ;
 }
@@ -215,7 +232,6 @@ h3{
    
 }
 
-
 @media (max-width: 1030px){
     
     .navbar{
@@ -237,20 +253,7 @@ h3{
     }
     .navbar-toggler{
         margin-left: 40vw;
-    }
-
-    .imagenDes1{
-        width: 28%;
-        margin-right: 15px;
-        margin-left: 15px;
-    }
-    .imagenDes2{
-        width: 35%;
-        margin-right: 15px;
-    }
-    .imagenDes3{
-        width: 28%; 
-    }
+    }    
     .nav-item{
         margin-left: 120px;
     }
@@ -285,6 +288,22 @@ h3{
         height: 250px;
     
     }
+    .imagenDes1{
+        
+        height: 320px;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+    .imagenDes2{
+       
+        height: 320px;
+        margin-right: 15px;
+    }
+    .imagenDes3{
+           
+        height: 320px;
+    }
+    
 }
 
 @media (max-width: 700px){
@@ -297,6 +316,7 @@ h3{
     }
     .imagenDes1{
         width: 27%;
+        
         margin-right: 10px;
         margin-left: 10px;
     }
@@ -341,13 +361,17 @@ h3{
         margin-left: 0px;    
     }
     .imagenDes1{
-        
-        margin-right: 2;
-        margin-left: 2px;
+        height: 280px;
+        margin-right: 2px;
+        margin-left: 4px;
     }
     .imagenDes2{
-        
+        height: 280px;
         margin-right: 2px;
+    }
+    .imagenDes3{
+        height: 280px;
+
     }
     .textoCarrucel1{
         font-size: 40px; 
@@ -416,6 +440,18 @@ h3{
     .nav-item{
         margin-left: 35px;
     }
+    .imagenDes1{
+        height: 220px;
+        
+    }
+    .imagenDes2{
+        height: 220px;
+        
+    }
+    .imagenDes3{
+        height: 220px;
+
+    }
     
 }
 
@@ -455,7 +491,26 @@ h3{
     }
     .simulacion{
         width: 100%; 
-        height: 150px;
+        height: 100px;
     
+    }
+    .imagenDes1{
+        height: 100px;
+        
+    }
+    .imagenDes2{
+        height: 100px;
+        
+    }
+    .imagenDes3{
+        height: 100px;
+
+    }
+    .adaptable{
+        display: block;
+        z-index: 1;
+    }
+    .portadaI{
+        z-index: 0;
     }
 }
