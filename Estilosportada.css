@@ -455,10 +455,10 @@ h3{
     
 }
 
-@media (max-width: 370px){
+@media (max-width: 360px){
 
     .dos{
-        padding: 5px 0px 0px 0px;    
+          
         font-size: 20px;
     }
    
