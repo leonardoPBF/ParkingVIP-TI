@@ -53,10 +53,6 @@
     background-color: white;
     color: #18191a;
 }
-.navbar-toggler:hover{
-    background-color: white;
-    color: #18191a;
-}
 
 .conte{
     list-style: none;
@@ -225,6 +221,9 @@ h3{
 
 }
 
+.indice{
+    border-right: 7px solid rgba(255, 255, 255, 0.735);
+}
 .correos{
     color:rgba(255, 255, 255, 0.735);   
     padding: 60px;
@@ -417,10 +416,7 @@ h3{
     .cajaCorreo{   
         margin-left: -50px;
           
-    }
-    .correos{
-        padding: 20px;
-    }
+    }    
     .videoyou{
         width: 100%;
         height: 140px;
@@ -452,6 +448,14 @@ h3{
         height: 220px;
 
     }
+    .indice{
+        border-right: 0px;
+    }
+    .inf{
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 5px solid rgba(255, 255, 255, 0.735);
+    }
     
 }
 
@@ -468,7 +472,7 @@ h3{
            
     }
     .correos{
-        margin-left: -10px;
+        margin-left: 0px;
     }
     .textoCarrucel1{
         font-size: 25px; 
