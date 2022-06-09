@@ -211,15 +211,12 @@
 LiquidCrystal_I2C lcd(0x27,16,2);
 Servo entrada;
 
-int servo=9;
-
+const int servo=9,trigger1=10, trigger2=12, trigger3=6, echo1=11, echo2=13, echo3=7,foco1=4,foco2=3;
 long tiempo1, tiempo2, tiempoE;
 double  distancia1, distancia2, distanciaE;
 
-int trigger1=10, trigger2=12, trigger3=6, echo1=11, echo2=13, echo3=7,
-foco1=4, foco2=3, dato;
+int dato;
 int luz;
-
 int uso;
 int espaciosD=2;
 
@@ -289,8 +286,6 @@ void loop()
       digitalWrite(foco1, LOW);
       digitalWrite(foco2, LOW);
     }
-
-    
         
   //verificamos espacios vacios  
 
@@ -302,7 +297,7 @@ void loop()
         uso=0;        
       }
       
-      espaciosD=2;       
+      espaciosD;       
       espaciosD=espaciosD-uso;  
   
   //detectamos el vehiculo con sensor de distancia
@@ -310,43 +305,36 @@ void loop()
     if (distanciaE < 14){   
     
     lcd.clear();
-    lcd.setCursor(0,0);
-    
+    lcd.setCursor(0,0);    
       
   //vemos si existen espacios disponibles 
-    
-    
-    if(espaciosD>0){
-      lcd.clear();
-      lcd.print("Hola, bienvenido a Parking VIP");
-      entrada.write(0);
-      
-      for(int i=0;i<22; i++){
-          lcd.scrollDisplayLeft();
-          delay(250);
+        
+      if(espaciosD>0){
+        lcd.clear();
+        lcd.print("Hola, bienvenido a Parking VIP");
+        entrada.write(0);
+        
+        for(int i=0;i<22; i++){
+            lcd.scrollDisplayLeft();
+            delay(250);
+        }
+        entrada.write(90);
+        lcd.clear();
+               
+        
+      }else if(espaciosD == 0){
+        
+        lcd.clear();
+        lcd.print("Estacionamiento lleno");
+        
+        delay(500);
+        for(int i=0;i<22; i++){
+            lcd.scrollDisplayLeft();
+            delay(300);
+        }   
+      }    
       }
-      entrada.write(90);
-      lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print("Espacios");
-      lcd.setCursor(0,1);
-      lcd.print("Disponibles: ");
-      lcd.print(espaciosD);
-      
-      
-    }else if(espaciosD <= 0){
-      
-      lcd.clear();
-      lcd.print("Estacionamiento lleno");
-      
-      delay(500);
-      for(int i=0;i<22; i++){
-          lcd.scrollDisplayLeft();
-          delay(300);
-      }   
-    }    
-    }
-    }
+      }
   }
     </pre>
     </div>
